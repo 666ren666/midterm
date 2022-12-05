@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+
+       <div class="row row-cols-5 row-cols-md-5 g-4">
+            {% for car in cars %}
+        <div class="col">
+
+            <div class="card">
+            <img src="{% static 'images/' %}{{ car.image }}" height="150px" width="150px" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Car: {{ car.number }}. Type: {{ car.get_cartype_display }}.</h5>
+                <p class="card-text">Manufacturer: {{ car.manufacturer }}</p>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        </div>
+{% endblock %}
