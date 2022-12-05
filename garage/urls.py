@@ -16,9 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from car import views
+from cards import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.cars, name="cars"),
-    path('car/', include('car.urls'))
+    # path('', views.cars, name="cars"),
+    # path('car/', include('car.urls')),
+
+    # path('game', include('cards.urls')),
+
+    path('', views.main, name="main"),
+    path('game', views.game, name="game"),
+    path('win', views.win, name="win"),
+    path('lose', views.lose, name="lose")
 ]
