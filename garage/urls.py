@@ -25,5 +25,7 @@ urlpatterns = [
     path('game', views.game, name="game"),
     path('win', views.win, name="win"),
     path('lose', views.lose, name="lose"),
-    path('list', views.list, name="list")
+    path('list', views.list, name="list"),
+    path('betting', views.betting, name="betting")
+
 ]

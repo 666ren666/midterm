@@ -18,6 +18,9 @@ def list(request):
     return render(request,'list.html')
 
 
+def betting(request):
+    return render(request,'betting.html')
+
 
 
 

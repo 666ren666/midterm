@@ -37,10 +37,11 @@ class Card(models.Model):
     image = models.ImageField(null=True, blank=True, default='cards/B-Red.png')
 
     def build_cards_to_db(self):
-        for suit in self.Suit.chicese:
+        for suit in Card.suit.choices:
             for number in range(2, 14):
                 Card.image_connection(suit, number)
-
+        Card.suit = suit
+        Card.number = number 
 
     def image_connection(suit, number):
 
