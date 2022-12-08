@@ -11,68 +11,38 @@ class UserProfile(models.Model):
 
 class Card(models.Model):
 
-    class Suit(models.IntegerChoices):
-        CLUBS = 1, 'CLUBS'
-        DIAMONDS = 2, 'DIAMONDS'
-        HEARTS = 3, 'HEARTS'    
-        SPADES = 4, 'SPADES'    
+    CLUBS = 0
+    DIAMONDS = 1
+    HEARTS = 2
+    SPADES = 3
 
-    class Number(models.IntegerChoices):
-        ACE = 1, 'ACE'
-        TWO = 2, 'TWO'
-        THREE = 3, 'THREE'    
-        FOUR = 4, 'FOUR'
-        FIVE = 5, 'FIVE'
-        SIX = 6, 'SIX'
-        SEVEN = 7, 'SEVEN'
-        EIGHT = 8, 'EIGHT'
-        NINE = 9, 'NINE'
-        TEN = 10, 'TEN'
-        JACK = 11, 'JACK'
-        QUEEN = 12, 'QUEEN'
-        KING = 13, 'KING'
+    SUITS = (
+    (SPADES, 'SPADES'),
+    (CLUBS, 'CLUBS'),
+    (DIAMONDS, 'DIAMONDS'),
+    (HEARTS, 'HEARTS')
+    )
 
-    suit = models.IntegerField(choices=Suit.choices, null=False)
-    number = models.IntegerField(choices=Number.choices, null=False)
-    image = models.ImageField(null=True, blank=True, default='cards/B-Red.png')
-
-    def build_cards_to_db(self):
-        for suit in Card.suit.choices:
-            for number in range(2, 14):
-                Card.image_connection(suit, number)
-        Card.suit = suit
-        Card.number = number 
-
-    def image_connection(suit, number):
-
-        if suit == "CLUBS":
-            suit = "C"
-        if suit == "DIAMONDS":
-            suit = "D"
-        if suit == "HEARTS":
-            suit = "H"
-        if suit == "SPADES":
-            suit = "S"
-
-        if number == 11:
-            number = "J"
-        if number == 12:
-            number = "Q"
-        if number == 13:
-            number = "K"
-        if number == 14:
-            number = "A"
-
-        if number <= 2 and number >= 10:
-            number = number 
-
-        card_image = str(number,"-",suit,".png")
-        return card_image
+    suit = models.PositiveSmallIntegerField(choices=SUITS)
+    rank = models.CharField(max_length=5)
+    image = models.ImageField(null=True, blank=True, default='B-Red.png')
 
 
 
 
 
+
+# def build_cards_to_db(Card):
+#     for suit in Card.suit.choices:
+#         for number in range(2, 14):
+#             card = Card(suit=suit, number=number)
+
+
+
+
+    #         Card.image_connection(suit, number)
+    # Card.suit = suit
+    # Card.number = number 
 
 
 # xxxxxxxxxxxxxxxxxxxxxxxxx

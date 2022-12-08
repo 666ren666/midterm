@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from cards import views
 
+
+
+app_name = 'cards'
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('game', include('cards.urls')),
