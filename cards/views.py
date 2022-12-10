@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from cards.models import Card, Deck
 # Create your views here.
 
 def main(request):
@@ -21,6 +21,11 @@ def betting(request):
     return render(request,'betting.html')
 
 
+
+def show(request):
+    cards = Deck.make_deck
+
+    return render(request,"show.html",{'card_list':cards})
 
 
 """"

@@ -1,5 +1,5 @@
 from django.db import models
-
+import random
 
 class UserProfile(models.Model):
     name = models.CharField(max_length=20)
@@ -8,101 +8,88 @@ class UserProfile(models.Model):
     image = models.ImageField(null=True, blank=True, default='car.png')
     # user_deck = ?
 
-
 class Card(models.Model):
-
-    CLUBS = 0
-    DIAMONDS = 1
-    HEARTS = 2
-    SPADES = 3
+    
+    CLUBS, DIAMONDS, HEARTS, SPADES = 1, 2, 3, 4
+    TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE = 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
 
     SUITS = (
-    (SPADES, 'SPADES'),
     (CLUBS, 'CLUBS'),
     (DIAMONDS, 'DIAMONDS'),
-    (HEARTS, 'HEARTS')
+    (HEARTS, 'HEARTS'),
+    (SPADES, 'SPADES'),
+    )
+
+    NUMBERS = (
+    (TWO,'2'),
+    (THREE, '3'),
+    (FOUR, '4'),
+    (FIVE, '5'),
+    (SIX, '6'),
+    (SEVEN, '7'),
+    (EIGHT, '8'),
+    (NINE, '9'),
+    (TEN, '10'),
+    (JACK, 'J'),
+    (QUEEN, 'Q'),
+    (KING, 'K'),
+    (ACE, 'A'),
     )
 
     suit = models.PositiveSmallIntegerField(choices=SUITS)
-    rank = models.CharField(max_length=5)
+    number = models.PositiveSmallIntegerField(choices=NUMBERS)
     image = models.ImageField(null=True, blank=True, default='B-Red.png')
 
+    def __str__(self):
+        return f'{self.number} of {self.suit}'
+
+
+class Deck(models.Model):
+
+    def make_deck():
+        card_list = []
+        all_cards = Card.objects.all()
+        for card in all_cards:
+            card =  f'{card.number} of {card.suit}'
+            card_list.append(card)
+        random.shuffle(card_list)
+        a = Deck.deal(card_list)
+        return a
+
+    def deal(cards):
+        deck_1 = []
+        deck_2 = []
+        counter = 1
+
+        for i in range(52):
+            popped_card = cards.pop(0)
+
+            if counter % 2 == 0:
+                deck_1. append(popped_card)
+                counter += 1 
+            else:
+                deck_2. append(popped_card)
+                counter += 1 
+        return deck_1, deck_2
 
 
 
+# check if you win or lose 
+    def is_empty(deck_1, deck_2):
+        if deck_1 == []:
+            return render ("lost.html")
 
-
-# def build_cards_to_db(Card):
-#     for suit in Card.suit.choices:
-#         for number in range(2, 14):
-#             card = Card(suit=suit, number=number)
-
-
-
-
-    #         Card.image_connection(suit, number)
-    # Card.suit = suit
-    # Card.number = number 
-
-
-# xxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-# game logic
-
-    def draw(deck_a, deck_b):
-        card_a = deck_a.pop(0)
-        card_b = deck_b.pop(0)
-        return card_a, card_b
-
-    def greater_than(card_a, card_b, deck_a, deck_b):
-        Card.draw(deck_a, deck_b)
-        if card_a > card_b:
-            deck_a.append(card_a, card_b) 
-            return deck_a, deck_b
-        else:
-            deck_b.append(card_a, card_b) 
-            return deck_a, deck_b
-
-    def equal(card_a, card_b, deck_a, deck_b):
-        temp_cards = []
-        Card.draw(deck_a, deck_b)
-        if card_a == card_b:
-            temp_cards.append(card_a, card_b)
-            Card.draw()
-            Card.greater_than()
-
-
-
-
-
-# class User_Deck(models.Model):
-#     def is_empty(deck)
-#         if deck == []
-#         return render ("lost.html")
+        if deck_2 == []:
+            return render ("win.html")
         
 # # xxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-#     def shuffle(self):
-#         for i in range(len(self.cards)-1, 0, -1):
-#             r = random.randint(0, i)
-#             self.cards[i], self.cards[r] = self.cards[r], self.cards[i]
-
-
 
 """
 3. create user profile VVVVVVVVVVVVVVVVVVVVVVV
 
-
-
-
-2. create card building function (init) 
-
 class Card():
-    suit   -> e-num
-    number -> e-num
-    image
+
+
     user_deck FK
     def _eq_ equal
     def _gt_ greater then 
@@ -192,8 +179,27 @@ class Treatment(models.Model):
 
 
 
-
-
-
-
 """
+
+
+
+''''
+junk
+    # suit = models.CharField(max_length = 20, null=False, default = SuitType.CLUBS, choices=SuitType.choices)
+    # number = models.CharField(max_length = 20, null=False, default = NumberType.TWO, choices=NumberType.choices)
+    # suit = models.CharField(max_length=5)
+    # number = models.CharField(max_length=5)
+    
+    # def get_suit_type(self):
+    #     for choice in self.SuitType:
+    #         if self.type == choice.value:
+    #             return choice.label
+    #     return 'NO TYPE'
+
+    # def get_number_type(self):
+    #     for choice in self.NumberType:
+    #         if self.type == choice.value:
+    #             return choice.label
+    #     return 'NO TYPE'
+
+'''
