@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 
@@ -57,12 +59,16 @@
           <img src="static/images/cards/B-Red.png" width="250">
         </div>
 
+        <!-- player 1 card -->
+
         <div class="col order-2">
-          <img src="static/images/cards/2-C.png" width="250">
+          <img src="{% static 'images/cards/' %}{{ card_1 }}" width="250">
+          
         </div>
 
+        <!-- player 2 card -->
         <div class="col order-3">
-          <img src="static/images/cards/5-D.png" width="250">
+          <img src="{% static 'images/cards/' %}{{ card_2 }}" width="250">
         </div>
 
         <div class="col order-4">
@@ -75,7 +81,10 @@
 
       <!-- BUTTON -->
       <div style="text-align: center">
-        <a href="{% url 'game' %}"><img src="static/images/buttons/pull.png" width="350"></a>
+        <a href="{% url 'game' %}"><img src="static/images/buttons/pull.png" width="350" onclick="draw(deck)"></a>
+        
+        {{card_1}}
+
       </div>
 
     </div>
