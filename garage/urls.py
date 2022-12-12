@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from cards import views
+from cards import views, game_logic
 
 
 
@@ -31,6 +31,9 @@ urlpatterns = [
     path('list', views.list, name="list"),
     path('betting', views.betting, name="betting"),
     path('show', views.show, name="show"),
+    path('leaderboard', views.leaderboard, name="leaderboard"),
+    path('game_round', game_logic.game_round, name="game_round"),
+
 
 
 ]

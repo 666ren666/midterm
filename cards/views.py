@@ -1,8 +1,27 @@
 from django.shortcuts import render
 from cards.models import Card
-from cards.utils import make_deck 
-from cards.game_logic import draw
-# Create your views here.
+from cards.game_logic import deck_2, deck_1
+from cards.game_logic import count_cards, draw, greater_than, is_empty
+
+
+def game(request):
+
+    amount_1 = int(count_cards(deck_1))
+    amount_2 = int(count_cards(deck_2))
+
+    a = is_empty(deck_1, deck_2)
+    if a == "win":
+        return render(request,'win.html')
+    if a == "lose":
+        return render(request,'lose.html')
+
+    card_1, image_1, value_1 = draw(deck_1)
+    card_2, image_2, value_2 = draw(deck_2)
+
+    greater_than(card_1, value_1, deck_1, card_2, value_2, deck_2)
+
+    return render(request,'game.html',{'card_1':image_1, 'card_2':image_2, 'amount_1':amount_1, 'amount_2':amount_2, 'value_1':value_1, 'value_2':value_2})
+
 
 def main(request):
     return render(request,'main.html')
@@ -13,39 +32,49 @@ def win(request):
 def lose(request):
     return render(request,'lose.html')
 
-def game(request):
-
-    both_decks = make_deck()
-    deck_1 = (both_decks[0])
-    deck_2 = (both_decks[1])
-
-    card_1 = draw(deck_1)
-    card_string = str(card_1)
-    split_card = card_string.split(', ')
-    image_1 = split_card[1]
-    
-    card_2 = draw(deck_2)
-    card_string = str(card_2)
-    split_card = card_string.split(', ')
-    image_2 = split_card[1]
-
-    return render(request,'game.html',{'card_1':image_1, 'card_2':image_2 } )
-
 def list(request):
     return render(request,'list.html')
 
 def betting(request):
     return render(request,'betting.html')
 
+def leaderboard(request):
+    return render(request,'leader_board.html')
+
 
 def show(request):
-    deck_1=[]
-    deck_2=[]
-    both_decks = make_deck()
-    deck_1.append(both_decks[0])
-    deck_2.append(both_decks[1])
 
     return render(request,"show.html",{'deck_1':deck_1, 'deck_2':deck_2})
+
+
+
+
+
+
+# def game(request):
+
+#     amount_1 = int(count_cards(deck_1))
+#     amount_2 = int(count_cards(deck_2))
+
+#     card_1 = deck_1.pop(0)
+#     card_string_1 = str(card_1)
+#     split_card_1 = card_string_1.split(', ')
+#     image_1 = split_card_1[1]
+#     value_and_suit_1 = split_card_1[0]
+#     split_suit_1 = value_and_suit_1.split(' of')
+#     value_1 = int(split_suit_1[0])
+
+#     card_2 = deck_2.pop(0)
+#     card_string_2 = str(card_2)
+#     split_card_2 = card_string_2.split(', ')
+#     image_2 = split_card_2[1]
+#     value_and_suit_2 = split_card_2[0]
+#     split_suit_2 = value_and_suit_2.split(' of')
+#     value_2 = int(split_suit_2[0])
+
+#     greater_than(card_1, card_2, deck_1, deck_2, temp_cards)
+
+#     return render(request,'game.html',{'card_1':image_1, 'card_2':image_2, 'amount_1':amount_1, 'amount_2':amount_2, 'value_1':value_1, 'value_2':value_2})
 
 
 

@@ -27,6 +27,20 @@
       background-repeat: no-repeat;
       background-size: cover;
     }
+
+    .btn-circle.btn-xl {
+			width: 100px;
+			height: 100px;
+			padding: 0px 0px;
+			border-radius: 100%;
+			font-size: 10px;
+			text-align: left;
+		}
+
+    #img-play:hover {
+        content: url("static/images/buttons/pause.png");
+    }
+
   </style>
 
 </head>
@@ -35,12 +49,21 @@
 
   <div class="bg">
     <!-- <img src="static/images/backgrounds/header.png" width="100%"> -->
+        
+    
+
 
 
 
     <!-- PROFILE PICS  -->
     <div style="text-align: center">
       <br><br><br>
+              <!-- audio -->
+                <audio id="sound1" src="static/audio/music.mp3" preload="auto" loop ="True"></audio>
+                <button  type="button" class="btn btn-danger btn-circle btn-xl" onclick="document.getElementById('sound1').play();" ><img id="img-play" src="static/images/buttons/play.png" width="100"></button>
+                <button  type="button" class="btn btn-danger btn-circle btn-xl" onclick="document.getElementById('sound1').pause();"><img id="img-play" src="static/images/buttons/play.png" width="100"></button>
+
+
       <img src="static/images/profile/ori.jpg" class="rounded-circle" alt="Cinque Terre" width="100" height="100">
       <img src="static/images/backgrounds/space.png" width="210">
       <img src="static/images/profile/mor.jpg" class="rounded-circle" alt="Cinque Terre" width="100" height="100">
@@ -53,8 +76,9 @@
     <div class="container text-center">
 
       <div class="row">
+
         <div class="col order-1">
-          <h1 style="color: rgb(255, 217, 0); font-family:'Times New Roman', Times, serif;">23</h1>
+          <h1 style="color: rgb(255, 217, 0); font-family:'Times New Roman', Times, serif;">{{ amount_1 }}</h1>
           <img src="static/images/backgrounds/space.png" width="200">
           <img src="static/images/cards/B-Red.png" width="250">
         </div>
@@ -63,7 +87,6 @@
 
         <div class="col order-2">
           <img src="{% static 'images/cards/' %}{{ card_1 }}" width="250">
-          
         </div>
 
         <!-- player 2 card -->
@@ -72,19 +95,17 @@
         </div>
 
         <div class="col order-4">
-          <h1 style="color: rgb(255, 217, 0); font-family:'Times New Roman', Times, serif;">23</h1>
+          <h1 style="color: rgb(255, 217, 0); font-family:'Times New Roman', Times, serif;">{{ amount_2 }}</h1>
           <img src="static/images/backgrounds/space.png" width="200">
           <img src="static/images/cards/B-Red.png" width="250">
-
         </div>
+
       </div>
+    
 
       <!-- BUTTON -->
       <div style="text-align: center">
-        <a href="{% url 'game' %}"><img src="static/images/buttons/pull.png" width="350" onclick="draw(deck)"></a>
-        
-        {{card_1}}
-
+        <a href="{% url 'game_round' %}"><img src="static/images/buttons/pull.png" width="350"></a>
       </div>
 
     </div>
@@ -94,3 +115,9 @@
 </body>
 
 </html>
+
+<!-- <a href="{% url 'game' %}"><img src="static/images/buttons/pull.png" width="350"></a> -->
+
+        <!-- <button type="button">Click Me!</button> -->
+        <!-- <button onclick="myFunction(deck_1, deck_2)">Click on me to run the functions</button> -->        
+        <!-- <button onclick="myFunction()">Click me</button> -->

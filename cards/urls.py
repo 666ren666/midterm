@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views, game_logic, audio
 
 app_name = 'cards'
 urlpatterns = [
@@ -9,5 +9,10 @@ urlpatterns = [
     path('lose', views.lose, name="lose"),
     path('betting', views.betting, name="betting"),
     path('show', views.show, name="show"),
+    path('leaderboard', views.leaderboard, name="leaderboard"),
+    path('game_round', game_logic.game_round, name="game_round"),
+    path('music', audio.music, name="music"),
+
+
 
 ]
