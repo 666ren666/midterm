@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from cards.models import Card
 from cards.game_logic import deck_2, deck_1
 from cards.game_logic import count_cards, draw, greater_than, is_empty
 
@@ -41,9 +40,7 @@ def betting(request):
 def leaderboard(request):
     return render(request,'leader_board.html')
 
-
 def show(request):
-
     return render(request,"show.html",{'deck_1':deck_1, 'deck_2':deck_2})
 
 

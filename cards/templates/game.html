@@ -22,6 +22,7 @@
       background-image: url("static/images/backgrounds/back_ground.jpg");
       /* Full height */
       height: 100%;
+      width: 100%;
       /* Center and scale the image nicely */
       background-position: center;
       background-repeat: no-repeat;
@@ -29,16 +30,30 @@
     }
 
     .btn-circle.btn-xl {
-			width: 100px;
-			height: 100px;
-			padding: 0px 0px;
-			border-radius: 100%;
-			font-size: 10px;
-			text-align: left;
-		}
+      width: 100px;
+      height: 100px;
+      padding: 0px 0px;
+      border-radius: 100%;
+      font-size: 10px;
+      text-align: left;
+    }
 
     #img-play:hover {
-        content: url("static/images/buttons/pause.png");
+      content: url("static/images/buttons/pause.png");
+    }
+
+    .side_pannel {
+      background-image: url("static/images/backgrounds/left.jpg");
+      /* Full height */
+      height: 100%;
+      /* Center and scale the image nicely */
+      background-position: left;
+      background-repeat: no-repeat;
+    }
+
+
+    .button-playAudio {
+      border-radius: 50px;
     }
 
   </style>
@@ -48,43 +63,57 @@
 <body>
 
   <div class="bg">
-    <!-- <img src="static/images/backgrounds/header.png" width="100%"> -->
-        
-    
-
-
 
 
     <!-- PROFILE PICS  -->
     <div style="text-align: center">
       <br><br><br>
-              <!-- audio -->
-                <audio id="sound1" src="static/audio/music.mp3" preload="auto" loop ="True"></audio>
-                <button  type="button" class="btn btn-danger btn-circle btn-xl" onclick="document.getElementById('sound1').play();" ><img id="img-play" src="static/images/buttons/play.png" width="100"></button>
-                <button  type="button" class="btn btn-danger btn-circle btn-xl" onclick="document.getElementById('sound1').pause();"><img id="img-play" src="static/images/buttons/play.png" width="100"></button>
-
-
       <img src="static/images/profile/ori.jpg" class="rounded-circle" alt="Cinque Terre" width="100" height="100">
       <img src="static/images/backgrounds/space.png" width="210">
       <img src="static/images/profile/mor.jpg" class="rounded-circle" alt="Cinque Terre" width="100" height="100">
       <br><br><br>
     </div>
 
+      <!-- audio buttons -->
+
+      <div class="position-absolute bottom-0 start-0">
+        <audio id="sound1" src="static/audio/music.mp3" preload="auto" loop="True"></audio>
+
+        <button type="button" class="btn btn-danger btn-circle btn-xl"
+          onclick="document.getElementById('sound1').play();">
+          <img id="img-play" src="static/images/buttons/play.png"
+            width="100"></button>
+
+        <br>
+        <img src="static/images/backgrounds/space.png" width="150">
+        <br>
+
+        <button type="button" class="btn btn-danger btn-circle btn-xl"
+          onclick="document.getElementById('sound1').pause();"><img id="img-play" src="static/images/buttons/play.png"
+            width="100"></button>
+        <br>
+        <img src="static/images/backgrounds/space.png" width="150">
+      </div>
+
+
+
+
+
 
 
     <!-- CARDS -->
     <div class="container text-center">
-
       <div class="row">
 
+        <!-- deck 1 -->
         <div class="col order-1">
           <h1 style="color: rgb(255, 217, 0); font-family:'Times New Roman', Times, serif;">{{ amount_1 }}</h1>
           <img src="static/images/backgrounds/space.png" width="200">
           <img src="static/images/cards/B-Red.png" width="250">
+
         </div>
 
         <!-- player 1 card -->
-
         <div class="col order-2">
           <img src="{% static 'images/cards/' %}{{ card_1 }}" width="250">
         </div>
@@ -94,6 +123,7 @@
           <img src="{% static 'images/cards/' %}{{ card_2 }}" width="250">
         </div>
 
+        <!-- deck 2 -->
         <div class="col order-4">
           <h1 style="color: rgb(255, 217, 0); font-family:'Times New Roman', Times, serif;">{{ amount_2 }}</h1>
           <img src="static/images/backgrounds/space.png" width="200">
@@ -101,23 +131,46 @@
         </div>
 
       </div>
-    
-
-      <!-- BUTTON -->
-      <div style="text-align: center">
-        <a href="{% url 'game_round' %}"><img src="static/images/buttons/pull.png" width="350"></a>
-      </div>
-
     </div>
+
+    <!--  pull cards BUTTON -->
+    <div style="text-align: center">
+      <a href="{% url 'game_round' %}"><img src="static/images/buttons/pull.png" width="350"></a>
+    </div>
+
   </div>
+  </div>
+
 
 
 </body>
 
 </html>
 
-<!-- <a href="{% url 'game' %}"><img src="static/images/buttons/pull.png" width="350"></a> -->
 
-        <!-- <button type="button">Click Me!</button> -->
-        <!-- <button onclick="myFunction(deck_1, deck_2)">Click on me to run the functions</button> -->        
-        <!-- <button onclick="myFunction()">Click me</button> -->
+
+
+<!-- <audio id="testAudio" hidden src="static/audio/music.mp3" type="audio/mpeg"></audio>
+      
+<button class="btn btn-danger btn-circle btn-xl" id="playAudio"></button>
+
+<script type="text/javascript">
+document.getElementById("playAudio").addEventListener("click", function(){
+    var audio = document.getElementById('testAudio');
+    var img = document.createElement("img");
+
+
+  if(this.className == 'is-playing'){
+    this.className = "";
+    img.setAttribute('src', 'static/images/buttons/pause.png');
+    audio.appendChild(img)
+    audio.pause();
+  }else{
+    this.className = "is-playing";
+    img.setAttribute('src', 'static/images/buttons/play.png');
+    audio.appendChild(img)
+    audio.play();
+  }
+
+});
+</script> -->
