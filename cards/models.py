@@ -10,13 +10,16 @@ class UserProfile(models.Model):
     def __str__(self):
         return f'{self.name} has {self.coin} coins'
 
+
+
 class Deck(models.Model):
     deck_name = models.CharField(max_length=100,default="deck_player_name")
     amount_of_cards = models.IntegerField(null=False, default=52)
-    user_profile = models.OneToOneField(UserProfile, on_delete = models.CASCADE, primary_key = True, default ="user_1" )
     
     def __str__(self):
         return f'{self.deck_name} has {self.amount_of_cards} cards in his/her deck'
+
+
 
 class Card(models.Model):
     CLUBS, DIAMONDS, HEARTS, SPADES = 1, 2, 3, 4
@@ -28,12 +31,12 @@ class Card(models.Model):
     suit = models.PositiveSmallIntegerField(choices=SUITS)
     number = models.PositiveSmallIntegerField(choices=NUMBERS)
     image = models.ImageField(null=True, blank=True, default='B-Red.png')
-    Deck = models.ForeignKey(null=True, on_delete=models.DO_NOTHING, to=Deck )
+    deck = models.ForeignKey(Deck, null=True, on_delete=models.DO_NOTHING, )
 
     def __str__(self):
         typed_suit = self.get_suit_display()
         typed_number = self.get_number_display()
-        return f'{typed_number} of {typed_suit}'
+        return f'{typed_number} of {typed_suit} {self.image}'
 
 
 

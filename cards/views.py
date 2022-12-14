@@ -1,25 +1,26 @@
+import pkgutil
 from django.shortcuts import render
-from cards.game_logic import deck_2, deck_1
 from cards.game_logic import count_cards, draw, greater_than, is_empty
+from cards.models import Card, Deck
 
 
-def game(request):
+# def game(request):
 
-    amount_1 = int(count_cards(deck_1))
-    amount_2 = int(count_cards(deck_2))
+#     amount_1 = int(count_cards(deck_1))
+#     amount_2 = int(count_cards(deck_2))
 
-    a = is_empty(deck_1, deck_2)
-    if a == "win":
-        return render(request,'win.html')
-    if a == "lose":
-        return render(request,'lose.html')
+#     a = is_empty(deck_1, deck_2)
+#     if a == "win":
+#         return render(request,'win.html')
+#     if a == "lose":
+#         return render(request,'lose.html')
 
-    card_1, image_1, value_1 = draw(deck_1)
-    card_2, image_2, value_2 = draw(deck_2)
+#     card_1, image_1, value_1 = draw(deck_1)
+#     card_2, image_2, value_2 = draw(deck_2)
 
-    greater_than(card_1, value_1, deck_1, card_2, value_2, deck_2)
+#     greater_than(card_1, value_1, deck_1, card_2, value_2, deck_2)
 
-    return render(request,'game.html',{'card_1':image_1, 'card_2':image_2, 'amount_1':amount_1, 'amount_2':amount_2, 'value_1':value_1, 'value_2':value_2})
+#     return render(request,'game.html',{'card_1':image_1, 'card_2':image_2, 'amount_1':amount_1, 'amount_2':amount_2, 'value_1':value_1, 'value_2':value_2})
 
 
 def main(request):
@@ -41,10 +42,10 @@ def leaderboard(request):
     return render(request,'leader_board.html')
 
 def show(request):
-    return render(request,"show.html",{'deck_1':deck_1, 'deck_2':deck_2})
+    my_card = Card.objects.get(id=34)
+    deck = Deck.objects.get(id=pkgutil)
 
-
-
+    return render(request,"show.html",{'my_card':my_card, 'my_deck':deck})
 
 
 
