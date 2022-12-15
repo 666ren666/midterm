@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', views.main, name="main"),
-    # path('game', views.game, name="game"),
+    path('game', views.game, name="game"),
     path('win', views.win, name="win"),
     path('lose', views.lose, name="lose"),
     path('list', views.list, name="list"),

@@ -1,26 +1,44 @@
-import pkgutil
 from django.shortcuts import render
-from cards.game_logic import count_cards, draw, greater_than, is_empty
-from cards.models import Card, Deck
+
+from cards.utils import deal 
+from cards.game_logic import count_cards, is_empty, draw, greater_than
+
+def game(request):
+    
+    # create the decks only on first round
+
+    counter=1
+    if counter == 1:
+        deck_1, deck_2 = deal()
+        temp_cards = []
+        counter += 1 
+    else:
+        counter += 1 
+        pass
 
 
-# def game(request):
+    # get amount of cards in each deck 
+    amount_1 = int(count_cards(deck_1))
+    amount_2 = int(count_cards(deck_2))
 
-#     amount_1 = int(count_cards(deck_1))
-#     amount_2 = int(count_cards(deck_2))
 
-#     a = is_empty(deck_1, deck_2)
-#     if a == "win":
-#         return render(request,'win.html')
-#     if a == "lose":
-#         return render(request,'lose.html')
+    # check if either deck is out of cards 
+    a = is_empty(deck_1, deck_2)
+    if a == "win":
+        return render(request,'win.html')
+    if a == "lose":
+        return render(request,'lose.html')
 
-#     card_1, image_1, value_1 = draw(deck_1)
-#     card_2, image_2, value_2 = draw(deck_2)
 
-#     greater_than(card_1, value_1, deck_1, card_2, value_2, deck_2)
+    # draw a card from each deck 
+    card_1, image_1, value_1 = draw(deck_1)
+    card_2, image_2, value_2 = draw(deck_2)
 
-#     return render(request,'game.html',{'card_1':image_1, 'card_2':image_2, 'amount_1':amount_1, 'amount_2':amount_2, 'value_1':value_1, 'value_2':value_2})
+
+    # compare the cards and update the decks 
+    deck_1, deck_2, temp_cards = greater_than(card_1, value_1, deck_1, card_2, value_2, deck_2, temp_cards)
+
+    return render(request,'game.html',{'counter':counter,'deck1':deck_1, 'deck2':deck_2, 'card_1':image_1, 'card_2':image_2, 'amount_1':amount_1, 'amount_2':amount_2, 'value_1':value_1, 'value_2':value_2})
 
 
 def main(request):
@@ -42,10 +60,14 @@ def leaderboard(request):
     return render(request,'leader_board.html')
 
 def show(request):
-    my_card = Card.objects.get(id=34)
-    deck = Deck.objects.get(id=pkgutil)
+    # my_card = Card.objects.get(id=34)
+    # my_deck = Deck.objects.get(id=1)
 
-    return render(request,"show.html",{'my_card':my_card, 'my_deck':deck})
+    # amount_1 = int(count_cards(deck_1))
+    # amount_2 = int(count_cards(deck_2))
+
+    return render(request,"show.html")
+    # {'my_card':amount_1, 'my_deck':amount_2})
 
 
 

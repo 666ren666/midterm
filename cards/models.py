@@ -41,7 +41,6 @@ class Card(models.Model):
 
 
 
-
 # game-logic 
 # step 1. 
 # press bet coins 
